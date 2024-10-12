@@ -32,7 +32,6 @@ class PhotoRepository @Inject constructor(
             MediaStore.Images.Media.DATE_ADDED
         )
 
-        // Adjust the bucket name based on actual device directories
         val selection = "${MediaStore.Images.Media.BUCKET_DISPLAY_NAME} = ?"
         val selectionArgs = arrayOf("Camera")
 
@@ -79,7 +78,7 @@ class PhotoRepository @Inject constructor(
                 val photo = Photo(
                     id = id,
                     uri = contentUri,
-                    thumbnailUri = contentUri // Consider using separate thumbnail URIs if needed
+                    thumbnailUri = contentUri
                 )
 
                 photos.add(photo)

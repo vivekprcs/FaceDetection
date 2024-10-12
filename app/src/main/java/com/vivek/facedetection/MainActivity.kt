@@ -46,14 +46,12 @@ class MainActivity : ComponentActivity() {
                 val context = LocalContext.current
                 val isAndroid13Plus = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
 
-                // Determine which permission to request
                 val permissionToRequest = if (isAndroid13Plus) {
                     Manifest.permission.READ_MEDIA_IMAGES
                 } else {
                     Manifest.permission.READ_EXTERNAL_STORAGE
                 }
 
-                // Check if permission is already granted
                 val hasPermission = ContextCompat.checkSelfPermission(
                     context,
                     permissionToRequest
@@ -61,7 +59,6 @@ class MainActivity : ComponentActivity() {
 
                 var permissionState by remember { mutableStateOf(hasPermission) }
 
-                // Launcher to request permission
                 val launcher = rememberLauncherForActivityResult(
                     contract = ActivityResultContracts.RequestPermission()
                 ) { isGranted ->

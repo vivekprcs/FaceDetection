@@ -16,7 +16,7 @@ fun GalleryScreen(viewModel: GalleryViewModel) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp) // Adjust padding as needed
+            .padding(16.dp)
     ) {
         when {
             uiState.isLoading -> {
