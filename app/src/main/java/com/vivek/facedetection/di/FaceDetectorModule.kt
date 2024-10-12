@@ -16,27 +16,29 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object FaceDetectorModule {
 
-//    @Provides
-//    @Singleton
-//    fun provideFaceDetector(@ApplicationContext context: Context): FaceDetector {
-//        return try {
-//            val baseOptions = BaseOptions.builder()
-//                .setModelAssetPath("face_detection_short_range.tflite")
-//                .build()
-//            val faceDetectorOptions = FaceDetector.FaceDetectorOptions.builder()
-//                .setBaseOptions(baseOptions)
-//                .setRunningMode(RunningMode.IMAGE).build()
-//
-//            Log.d("FaceDetectionModule", "Creating FaceDetector with options: $faceDetectorOptions")
-//            FaceDetector.createFromOptions(context, faceDetectorOptions).also {
-//                Log.d("FaceDetectionModule", "FaceDetector created successfully")
-//            } ?: run {
-//                Log.e("FaceDetectionModule", "Failed to create FaceDetector")
-//                throw IllegalStateException("Failed to create FaceDetector")
-//            }
-//        } catch (e: Exception) {
-//            Log.e("FaceDetectionModule", "Error creating FaceDetector", e)
-//            throw e
-//        }
-//    }
+    @Provides
+    @Singleton
+    fun provideFaceDetector(@ApplicationContext context: Context): FaceDetector {
+        return try {
+            val baseOptions = BaseOptions.builder()
+                .setModelAssetPath("face_detection_short_range.tflite")
+                .build()
+            val faceDetectorOptions = FaceDetector.FaceDetectorOptions.builder()
+                .setBaseOptions(baseOptions)
+                .setRunningMode(RunningMode.IMAGE)
+                .setMinDetectionConfidence(0.8f)
+                .build()
+
+            Log.d("FaceDetectionModule", "Creating FaceDetector with options: $faceDetectorOptions")
+            FaceDetector.createFromOptions(context, faceDetectorOptions).also {
+                Log.d("FaceDetectionModule", "FaceDetector created successfully")
+            } ?: run {
+                Log.e("FaceDetectionModule", "Failed to create FaceDetector")
+                throw IllegalStateException("Failed to create FaceDetector")
+            }
+        } catch (e: Exception) {
+            Log.e("FaceDetectionModule", "Error creating FaceDetector", e)
+            throw e
+        }
+    }
 }

@@ -12,7 +12,7 @@ composeBom = "2024.04.01"
 hilt = "2.48"
 coil = "2.7.0"
 solutionCore = "0.10.15"
-mediapipeVersion = "0.20230731"
+mediapipeVersion = "0.10.16"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
