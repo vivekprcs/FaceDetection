@@ -32,6 +32,7 @@ fun PermissionDeniedScreen(onRetry: () -> Unit = {}) {
             Button(onClick = onRetry) {
                 Text(text = "Retry")
             }
+            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }

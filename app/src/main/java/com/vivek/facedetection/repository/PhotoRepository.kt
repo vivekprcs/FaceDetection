@@ -3,18 +3,17 @@ package com.vivek.facedetection.repository
 import android.content.ContentUris
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.ImageDecoder
 import android.net.Uri
-import android.os.Build
 import android.provider.MediaStore
 import android.util.Log
 import com.google.mediapipe.framework.image.BitmapImageBuilder
 import com.google.mediapipe.tasks.vision.facedetector.FaceDetector
+import com.google.mediapipe.tasks.vision.facedetector.FaceDetectorResult
 import com.vivek.facedetection.model.Photo
+import com.vivek.facedetection.utils.ImageUtils
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.io.IOException
 import javax.inject.Inject
 
 class PhotoRepository @Inject constructor(
@@ -29,7 +28,7 @@ class PhotoRepository @Inject constructor(
         queryPhotos(maxPhotos).forEach { (id, name, dateAdded) ->
             val contentUri = getPhotoUri(id)
 
-            getBitmap(contentUri)?.let { bitmap ->
+            ImageUtils.getBitmap(contentUri,context)?.let { bitmap ->
                 if (containsFace(bitmap)) {
                     photos.add(Photo(id, contentUri, contentUri))
                 }
@@ -79,26 +78,6 @@ class PhotoRepository @Inject constructor(
         return ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id)
     }
 
-    private fun getBitmap(uri: Uri): Bitmap? {
-        return try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                ImageDecoder.decodeBitmap(ImageDecoder.createSource(context.contentResolver, uri))
-            } else {
-                MediaStore.Images.Media.getBitmap(context.contentResolver, uri)
-            }
-        } catch (e: IOException) {
-            Log.e("PhotoRepository", "IOException while retrieving bitmap from URI: $uri", e)
-            null
-        } catch (e: IllegalArgumentException) {
-            Log.e("PhotoRepository", "Invalid URI provided for bitmap retrieval: $uri", e)
-            null
-        } catch (e: Exception) {
-            Log.e("PhotoRepository", "Unexpected error while retrieving bitmap from URI: $uri", e)
-            null
-        }
-    }
-
-
     private fun containsFace(bitmap: Bitmap): Boolean {
         val argbBitmap = convertToARGB8888(bitmap)
         return try {
@@ -115,6 +94,14 @@ class PhotoRepository @Inject constructor(
             bitmap.copy(Bitmap.Config.ARGB_8888, true)
         } else {
             bitmap
+        }
+    }
+
+    override suspend fun detectFaces(bitmap: Bitmap): FaceDetectorResult? {
+        return withContext(Dispatchers.IO) {
+            val argbBitmap = convertToARGB8888(bitmap)
+            val inputImage = BitmapImageBuilder(argbBitmap).build()
+            faceDetector.detect(inputImage)
         }
     }
 }

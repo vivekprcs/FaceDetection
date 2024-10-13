@@ -11,11 +11,13 @@ activityCompose = "1.9.2"
 composeBom = "2024.04.01"
 hilt = "2.48"
 coil = "2.7.0"
+navigationCompose = "2.6.0"
 solutionCore = "0.10.15"
 mediapipeVersion = "0.10.16"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 gradle-download-task = { module = "de.undercouch:gradle-download-task", version.ref = "gradleDownloadTask" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

@@ -1,6 +1,7 @@
 package com.vivek.facedetection.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,12 +15,13 @@ import androidx.compose.ui.platform.testTag
 import com.vivek.facedetection.model.Photo
 
 @Composable
-fun PhotoItem(photo: Photo) {
+fun PhotoItem(photo: Photo,  onClick: (Photo) -> Unit) {
     Card(
         shape = RoundedCornerShape(4.dp),
         modifier = Modifier
             .aspectRatio(1f)
-            .testTag("PhotoItem") // For testing purposes
+            .testTag("PhotoItem")
+            .clickable { onClick(photo) }
     ) {
         Image(
             painter = rememberAsyncImagePainter(photo.uri),

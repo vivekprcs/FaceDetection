@@ -6,11 +6,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.vivek.facedetection.viewmodel.GalleryViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GalleryScreen(viewModel: GalleryViewModel) {
+fun GalleryScreen(viewModel: GalleryViewModel, navController: NavController) {
     val uiState by viewModel.uiState.collectAsState()
 
     Box(
@@ -33,7 +34,12 @@ fun GalleryScreen(viewModel: GalleryViewModel) {
                 )
             }
             else -> {
-                PhotoGrid(photos = uiState.photos)
+                PhotoGrid(
+                    photos = uiState.photos,
+                    onPhotoClick = { photo ->
+                        navController.navigate("fullScreen/${photo.id}")
+                    }
+                )
             }
         }
     }

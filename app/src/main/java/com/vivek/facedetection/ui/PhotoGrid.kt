@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.vivek.facedetection.model.Photo
 
 @Composable
-fun PhotoGrid(photos: List<Photo>) {
+fun PhotoGrid(photos: List<Photo>, onPhotoClick: (Photo) -> Unit) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
         modifier = Modifier.fillMaxSize(),
@@ -21,7 +21,7 @@ fun PhotoGrid(photos: List<Photo>) {
         horizontalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         items(photos) { photo ->
-            PhotoItem(photo = photo)
+            PhotoItem(photo = photo, onClick = onPhotoClick)
         }
     }
 }

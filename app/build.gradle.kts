@@ -84,4 +84,6 @@ dependencies {
     kapt(libs.hilt.android.compiler)
 //    implementation(libs.solution.core)
     implementation(libs.mediapipe.vision)
+    implementation (libs.androidx.navigation.compose )
+
 }
