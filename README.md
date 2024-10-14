@@ -54,7 +54,7 @@ The app is structured using a **MVVM (Model-View-ViewModel)** architecture, whic
 
 | Gallery View          | Full-Screen View with Bounding Boxes |
 |-----------------------|-------------------------------------|
-| ![Gallery](gallery_screenshot.png) | ![Full-Screen](fullscreen_screenshot.png) |
+| ![Gallery](gallery_screenshot.jpg) | ![Full-Screen](fullscreen_screenshot.jpg) |
 
 ## Video Demonstration
 
