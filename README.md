@@ -59,8 +59,13 @@ The app is structured using a **MVVM (Model-View-ViewModel)** architecture, whic
 ## Video Demonstration
 
 Watch a demonstration of the app here:
-| ![App Video](path/to/gallery_screenshot.png)
+| ![App Video-1 ](video_2024-10-14_11-35-24.mp4) | ![App Video-2](video_2024-10-14_11-35-37.mp4)
 
+## APK Download
+
+You can download the APK file of the app from the link below:
+
+[Download APK]([path/to/your/app.apk](https://drive.google.com/file/d/1GacIAsz-T3p-JGJt73fnz8iy5hpgBg53/view?usp=sharing))
 
 ## Technologies Used
 
