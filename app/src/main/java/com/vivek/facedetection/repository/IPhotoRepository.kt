@@ -6,7 +6,7 @@ import com.vivek.facedetection.model.Photo
 import kotlinx.coroutines.flow.Flow
 
 interface IPhotoRepository {
-    fun getPhotosFlow(): Flow<Photo>
+    suspend fun getPhotosFlow(): Flow<Photo>
     suspend fun  detectFaces(bitmap: Bitmap): FaceDetectorResult?
     suspend fun getProcessedCountFlow(): Flow<Pair<Int, Int>>
 }

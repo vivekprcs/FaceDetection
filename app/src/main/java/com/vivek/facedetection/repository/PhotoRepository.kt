@@ -25,20 +25,13 @@ class PhotoRepository @Inject constructor(
     private val faceDetector: FaceDetector
 ) : IPhotoRepository {
 
-    private var processedCount = 0 // Count for all processed images
-    private var totalCount = 0 // Count for all processed images
-    private var queryCount =0
+    private var processedCount = 0
+    private var totalCount = 0
     private var emittingCount =0
-    private var methodCalledCount =0
 
 
-    override fun getPhotosFlow(): Flow<Photo> = flow {
-        methodCalledCount++
-        Log.d("FaceDetection", "PHOTO COUNT Querying photos from ViewModel $methodCalledCount")
-        queryPhotos().forEach { (id, name, dateAdded) ->
-             queryCount++
-            Log.d("FaceDetection", "PHOTO COUNT QUERY COUNT $queryCount")
-
+    override suspend fun getPhotosFlow(): Flow<Photo> = flow {
+        queryPhotos().forEach { (id, _, _) ->
             val contentUri = getPhotoUri(id)
             val bitmap = withContext(Dispatchers.IO) {
                 ImageUtils.getBitmap(contentUri, context)

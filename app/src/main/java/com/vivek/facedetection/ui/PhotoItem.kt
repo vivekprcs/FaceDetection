@@ -9,17 +9,17 @@ import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import androidx.compose.ui.platform.testTag
 import com.vivek.facedetection.model.Photo
+import com.vivek.facedetection.utils.DimensionUtils
 
 @Composable
 fun PhotoItem(photo: Photo,  onClick: (Photo) -> Unit) {
     Card(
-        shape = RoundedCornerShape(4.dp),
+        shape = RoundedCornerShape(DimensionUtils.smallPadding),
         modifier = Modifier
-            .aspectRatio(1f)
+            .aspectRatio(DimensionUtils.ASPECT_RATIO)
             .testTag("PhotoItem")
             .clickable { onClick(photo) }
     ) {
@@ -28,7 +28,7 @@ fun PhotoItem(photo: Photo,  onClick: (Photo) -> Unit) {
             contentDescription = "Photo",
             modifier = Modifier
                 .fillMaxSize()
-                .clip(RoundedCornerShape(4.dp))
+                .clip(RoundedCornerShape(DimensionUtils.smallPadding))
         )
     }
 }

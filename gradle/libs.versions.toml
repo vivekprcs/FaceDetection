@@ -12,13 +12,11 @@ composeBom = "2024.04.01"
 hilt = "2.48"
 coil = "2.7.0"
 navigationCompose = "2.6.0"
-solutionCore = "0.10.15"
 mediapipeVersion = "0.10.16"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
-gradle-download-task = { module = "de.undercouch:gradle-download-task", version.ref = "gradleDownloadTask" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -35,7 +33,6 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
-solution-core = { module = "com.google.mediapipe:solution-core", version.ref = "solutionCore" }
 mediapipe-vision = { module = "com.google.mediapipe:tasks-vision", version.ref = "mediapipeVersion" }
 
 [plugins]

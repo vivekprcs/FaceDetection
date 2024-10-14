@@ -8,17 +8,17 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.vivek.facedetection.model.Photo
+import com.vivek.facedetection.utils.DimensionUtils
 
 @Composable
 fun PhotoGrid(photos: List<Photo>, onPhotoClick: (Photo) -> Unit) {
     LazyVerticalGrid(
-        columns = GridCells.Fixed(3),
+        columns = GridCells.Fixed(DimensionUtils.GRID_CELLS),
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(4.dp),
-        verticalArrangement = Arrangement.spacedBy(4.dp),
-        horizontalArrangement = Arrangement.spacedBy(4.dp)
+        contentPadding = PaddingValues(DimensionUtils.smallPadding),
+        verticalArrangement = Arrangement.spacedBy(DimensionUtils.smallPadding),
+        horizontalArrangement = Arrangement.spacedBy(DimensionUtils.smallPadding)
     ) {
         items(photos) { photo ->
             PhotoItem(photo = photo, onClick = onPhotoClick)

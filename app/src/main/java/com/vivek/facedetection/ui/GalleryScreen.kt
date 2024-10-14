@@ -5,8 +5,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.vivek.facedetection.utils.DimensionUtils
 import com.vivek.facedetection.viewmodel.GalleryViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -17,7 +17,7 @@ fun GalleryScreen(viewModel: GalleryViewModel, navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(DimensionUtils.largePadding)
     ) {
         // Progress Bar Section
         Column(modifier = Modifier.fillMaxSize()) {
@@ -26,16 +26,15 @@ fun GalleryScreen(viewModel: GalleryViewModel, navController: NavController) {
                 progress = { if (uiState.totalCount > 0) uiState.processedCount.toFloat() / uiState.totalCount.toFloat() else 0f },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 8.dp)
-                    .height(8.dp),
+                    .padding(bottom = DimensionUtils.mediumPadding)
+                    .height(DimensionUtils.mediumPadding),
                 color = MaterialTheme.colorScheme.primary // Change color based on theme
             )
 
-            // Display the counts
             Text(
                 text = "Processed: ${uiState.processedCount} / ${uiState.totalCount}",
                 style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(bottom = 16.dp)
+                modifier = Modifier.padding(bottom = DimensionUtils.largePadding)
             )
 
             when {

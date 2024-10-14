@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.mediapipe.tasks.vision.facedetector.FaceDetectorResult
 import com.vivek.facedetection.model.Photo
 import com.vivek.facedetection.repository.IPhotoRepository
+import com.vivek.facedetection.ui.state.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -20,18 +21,24 @@ class GalleryViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
 
+
     fun getPhotoById(photoId: String?): Photo? {
         return photoId?.toLongOrNull()?.let { id ->
             _uiState.value.photos.find { it.id == id }
         }
     }
 
-    init {
-        loadPhotos()
-        observeProcessedCount()
+
+    fun handlePermission(isGranted: Boolean) {
+        if (isGranted) {
+            loadPhotos()
+            observeProcessedCount()
+        } else {
+            _uiState.update { it.copy(isLoading = false, error = "Permission Denied") }
+        }
     }
 
-    fun loadPhotos() {
+    private fun loadPhotos() {
         Log.d("GalleryViewModel", "loadPhotos called")
         viewModelScope.launch {
             photoRepository.getPhotosFlow()
@@ -50,11 +57,7 @@ class GalleryViewModel @Inject constructor(
                     _uiState.update { currentState ->
                         Log.d("GalleryViewModel", "Emitting photo with ID: ${photo.id}")
 
-                        val updatedPhotos = if (!currentState.photos.any { it.id == photo.id }) {
-                            currentState.photos + photo
-                        } else {
-                            currentState.photos
-                        }
+                        val updatedPhotos = currentState.photos + photo
 
                         if (updatedPhotos.isNotEmpty() && currentState.photos.isEmpty()) {
                             _uiState.update { it.copy(isLoading = false) }
@@ -74,6 +77,7 @@ class GalleryViewModel @Inject constructor(
     }
 
     private fun observeProcessedCount() {
+        Log.d("GalleryViewModel", "Photo Count observeProcessedCount called")
         viewModelScope.launch {
             photoRepository.getProcessedCountFlow()
                 .collect { (processedCount, totalCount) ->
@@ -84,13 +88,4 @@ class GalleryViewModel @Inject constructor(
                 }
         }
     }
-
-    // UI State data class
-    data class UiState(
-        val photos: List<Photo> = emptyList(),
-        val isLoading: Boolean = false,
-        val error: String? = null,
-        val processedCount: Int = 0,
-        val totalCount: Int = 0
-    )
 }
