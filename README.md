@@ -65,7 +65,7 @@ Watch a demonstration of the app here:
 
 You can download the APK file of the app from the link below:
 
-[Download APK]([path/to/your/app.apk](https://drive.google.com/file/d/1GacIAsz-T3p-JGJt73fnz8iy5hpgBg53/view?usp=sharing))
+[Download APK](https://drive.google.com/file/d/1GacIAsz-T3p-JGJt73fnz8iy5hpgBg53/view?usp=sharing)
 
 ## Technologies Used
 
